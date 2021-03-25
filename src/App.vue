@@ -26,7 +26,7 @@
     <div class="input-container">
       <div class="input-form">
         <input type="text" v-model="message" id="message" required>
-        <label for="message">Mensagem</label>
+        <label for="message">Mensagem, Descrição, Resumo..</label>
       </div>
     </div>
 
@@ -40,7 +40,7 @@
     <div class="input-container">
       <div class="input-form">
         <input type="text" v-model="amount" id="amount" required>
-        <label for="amount">Quantidade em R$</label>
+        <label for="amount">Quantidade em R$ (Ex: 10.00)</label>
       </div>
     </div>
 
@@ -48,6 +48,9 @@
 
     <div v-if="amount > 0">
       <img alt="" :src="image">
+    </div>
+    <div v-if="amount > 0">
+      {{ text }}
     </div>
   </div>
 </template>
@@ -61,6 +64,7 @@ export default {
   data() {
     return {
       image: '',
+      text: '',
       key: '00000000000',
       name: 'Jardel Frank',
       city: 'Caicó',
@@ -83,8 +87,8 @@ export default {
         value: Number(this.amount),
       })
       
-      console.log(qrCodePix.payload()) // '00020101021126510014BR.GOV.BCB.PIX...'
-      console.log(qrCodePix.base64()) // 'data:image/png;base64,iVBORw0...'
+      this.text = qrCodePix.payload() // '00020101021126510014BR.GOV.BCB.PIX...'
+      //console.log(qrCodePix.base64()) // 'data:image/png;base64,iVBORw0...'
       
       Promise.resolve(qrCodePix.base64()).then(value => {
         this.image = value
